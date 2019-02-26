@@ -35,10 +35,12 @@ public class ERwindow extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JButton btnRun;
+	private JButton btnBuy;
+	private JButton btnAddToWishlist;
 	private JTextField textField = new JTextField("Field");
 	private JTextField txtUsername;
 	private JTextField txtLibID;
+	private JList<String> listGames;
 
 	/**
 	 * Launch the application.
@@ -77,7 +79,7 @@ public class ERwindow extends JFrame {
 	// code for initializing events
 	private void initComponent() {
 
-		setTitle("ER Querie Displayer");
+		setTitle("Vude");
 		setIconImage(
 				Toolkit.getDefaultToolkit().getImage(ERwindow.class.getResource("/Window/resources/atom (3).png")));
 		setFont(new Font("Dialog", Font.BOLD, 12));
@@ -87,7 +89,7 @@ public class ERwindow extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		btnRun = new JButton("Buy");
+		btnBuy = new JButton("Buy");
 		
 		JButton btnGames = new JButton("Games");
 		btnGames.addActionListener(new ActionListener() {
@@ -107,7 +109,7 @@ public class ERwindow extends JFrame {
 		
 		JButton btnWishlist = new JButton("Wishlist");
 		
-		JButton btnAddToWishlist = new JButton("Add to Wishlist");
+		btnAddToWishlist = new JButton("Add to Wishlist");
 		
 		JLabel lblEnter = new JLabel("Enter your Lib ID");
 		
@@ -115,7 +117,7 @@ public class ERwindow extends JFrame {
 		List<String> gameList = SQLFetcher.getAllGames();
 		Object[] gameNames = gameList.toArray();
 		
-		JList<String> listGames = new JList(gameNames);
+		listGames = new JList(gameNames);
 		listGames.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listGames.setLayoutOrientation(JList.VERTICAL);
 		listGames.setVisibleRowCount(-1);
@@ -132,36 +134,42 @@ public class ERwindow extends JFrame {
 		txtLibID = new JTextField();
 		txtLibID.setColumns(10);
 		
+		JButton btnUpdateGame = new JButton("Update Game");
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(23)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(listGames, GroupLayout.PREFERRED_SIZE, 291, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnGames, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(btnUsers, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(btnReviews, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE))
-						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblUsername))
-					.addGap(13)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnUserLibrary)
-							.addGap(18)
-							.addComponent(btnWishlist, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-							.addGap(91))
+						.addComponent(btnUpdateGame)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblEnter, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnAddToWishlist)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(txtLibID, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-									.addComponent(btnRun, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)))
-							.addGap(13))))
+								.addComponent(listGames, GroupLayout.PREFERRED_SIZE, 291, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(btnGames, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(btnUsers, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(btnReviews, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblUsername))
+							.addGap(13)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(btnUserLibrary)
+									.addGap(18)
+									.addComponent(btnWishlist, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+									.addGap(91))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblEnter, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnAddToWishlist)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+											.addComponent(txtLibID, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+											.addComponent(btnBuy, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)))
+									.addGap(13)))))
+					.addGap(52))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -181,7 +189,7 @@ public class ERwindow extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(txtLibID, GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
 							.addGap(18)
-							.addComponent(btnRun, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnBuy, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
 						.addComponent(listGames, GroupLayout.PREFERRED_SIZE, 297, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -189,7 +197,9 @@ public class ERwindow extends JFrame {
 						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(56))
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(415)
+					.addGap(66)
+					.addComponent(btnUpdateGame)
+					.addGap(326)
 					.addComponent(lblUsername)
 					.addContainerGap(80, Short.MAX_VALUE))
 		);
@@ -200,11 +210,29 @@ public class ERwindow extends JFrame {
 	private void createEvents() {
 		try {
 
-			btnRun.addActionListener(new ActionListener() {
+			btnBuy.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(null, SQLFetcher.query1(textField), "Query Result", 1 );
+//					JOptionPane.showMessageDialog(null, SQLFetcher.query1(textField), "Query Result", 1 );
+					System.out.println("\'" + e.getActionCommand() + "\'" + " was pressed");
+					try {
+						int libID = Integer.parseInt(txtLibID.getText());
+						SQLFetcher.addGameToLibrary(listGames.getSelectedValue(), libID);						
+					}
+					catch (Throwable t) {
+						String message = "Something went wrong. Verify that LibID is a valid integer.";
+						System.err.println(message);
+						JOptionPane.showMessageDialog(null, message);
+						t.printStackTrace();
+					}
 				}
 
+			});
+			
+			btnAddToWishlist.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("\'" + e.getActionCommand() + "\'" + " was pressed");
+					SQLFetcher.addGameToWishlist(listGames.getSelectedValue(), txtUsername.getText());
+				}
 			});
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, " Invalid input");
@@ -213,6 +241,7 @@ public class ERwindow extends JFrame {
 
 	}
 	
+	//TODO: Determine if this is needed
 	class SharedListSelectionHandler implements ListSelectionListener {
         public void valueChanged(ListSelectionEvent e) { 
             ListSelectionModel lsm = (ListSelectionModel)e.getSource();
@@ -234,6 +263,7 @@ public class ERwindow extends JFrame {
                 for (int i = minIndex; i <= maxIndex; i++) {
                     if (lsm.isSelectedIndex(i)) {
 //                        output.append(" " + i);
+//                    	System.out.println(i);
                     }
                 }
             }
